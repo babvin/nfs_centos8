@@ -1,0 +1,14 @@
+---
+- name: Zip files in /srv/nfs with a name all_files.tar.gz
+  archive:
+    path:
+	  - /srv/nfs/alpha
+	  - /srv/nfs/beta
+	  - /srv/nfs/cuda
+	  - /srv/nfs/delta
+	  - /srv/nfs/fifa
+	  - /srv/nfs/gamma
+    dest: /srv/nfs/all_files.tar.gz
+    format: gz
+    remove: no
+  register: zip
