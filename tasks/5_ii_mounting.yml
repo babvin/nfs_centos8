@@ -1,0 +1,16 @@
+---
+- name: mounting
+  mount:
+    name: /nfs
+    src: node2:/srv/nfs
+    fstype: nfs4
+    opts: defaults
+    state: mounted
+  register: mounting
+  when: '"node1" in inventory_hostname or "node3" in inventory_hostname or "node4" in inventory_hostname'
+- debug:
+    var: mounting
+  when: mounting.changed
+- debug:
+    var: ansible_all_ipv4_addresses[0]
+

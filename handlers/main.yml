@@ -1,2 +1,8 @@
 ---
 # handlers file for nfs_centos8
+- name: Restart Service
+  command: 'exportfs -ra'
+  register: handler_export
+- debug:
+    var: handler_export
+  when: handler_export.changed

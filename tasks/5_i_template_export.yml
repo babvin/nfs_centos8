@@ -1,0 +1,11 @@
+---
+- name: Copy files in step 4 to /srv/nfs
+  template: 
+    src: templates/exports.j2
+    dest: /etc/exports
+  register: Export
+  notify: Restart Service
+  when: '"node2" in inventory_hostname'
+- debug:
+    var: Export
+  when: Export.changed

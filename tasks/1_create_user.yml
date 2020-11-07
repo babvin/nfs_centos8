@@ -7,23 +7,30 @@
       createhome: yes
       append: yes
     register: user_add
+    when: '"node2" in inventory_hostname'
   - name: set auth keys for new user (password less logins)
     authorized_key:
       user: nfsuser
-      key: /home/vagrant/.ssh/id_rsa.pub
+      key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}" 
     register: ssh_keys
+    when: '"node2" in inventory_hostname'
   - name: update sudo to access without password authentication
+    #become: root
     lineinfile:
       dest: /etc/sudoers
       state: present
       regexp: '^%wheel'
-      line: '%wheel ALL:(ALL) NOPASSWD:ALL'
-      validate: 'visudo -cf %s'
+      line: '%wheel ALL=(ALL) NOPASSWD:ALL'
+      #validate: 'visudo -cf %s'
     register: update_sudo
+    when: '"node2" in inventory_hostname'
 
   - debug:
       var: user_add
+    when: user_add.changed  
   - debug:
       var: ssh_keys
+    when: ssh_keys.changed
   - debug:
       var: update_sudo
+    #when: update_sudo.changed

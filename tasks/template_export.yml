@@ -1,7 +1,0 @@
----
-- name: Copy files in step 4 to /srv/nfs
-  template: 
-    src: exports.j2
-    dest: /etc/exports
-  register: Export
-  notify: Restart Service

@@ -1,0 +1,16 @@
+---
+- name: Zip files in /srv/nfs with a name all_files.tar.gz
+  archive:
+    path: '{{ item }}'
+    dest: /nfs/all_files.tar.gz
+    format: gz
+    remove: no
+  with_items:
+    - /nfs/alpha
+    - /nfs/beta
+    - /nfs/cuda
+    - /nfs/delta
+    - /nfs/fifa
+    - /nfs/gamma
+  register: zip
+  when: '"node1" in inventory_hostname'

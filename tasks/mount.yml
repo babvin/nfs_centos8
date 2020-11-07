@@ -1,9 +1,0 @@
----
-- name: Mount /srv/nfs on node1 (node3 and node4 if available)
-  mount:
-    path: /srv/nfs
-    src: /var/tmp
-    opts: bind
-    fstype: none
-    state: mounted
-  when: inventory_hostname == "node1" or inventory_hostname == "node3" or inventory_hostname == "node4" 

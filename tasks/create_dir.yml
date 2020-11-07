@@ -1,9 +1,0 @@
----
-  - name: create a directory
-      file:
-        path: /srv/nfs
-        state: directory
-        owner: nfsuser
-        mode: 777
-      when: '"node2" in invetory_hostname'
-      register: directory

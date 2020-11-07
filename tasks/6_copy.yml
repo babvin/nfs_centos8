@@ -1,0 +1,18 @@
+---
+  - name: copy files to nfs volume
+    copy:
+      src: '{{ item }}'
+      dest: /nfs
+      remote_src: yes
+    with_items:
+      - /tmp/alpha
+      - /tmp/beta
+      - /tmp/cuda
+      - /tmp/delta
+      - /tmp/fifa
+      - /tmp/gamma
+    register: copy_files
+    when: '"node1" in inventory_hostname or "node3" in inventory_hostname or "node4" in inventory_hostname'
+  - debug:
+      var: copy_files
+    when: copy_files.changed

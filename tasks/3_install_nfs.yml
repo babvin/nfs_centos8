@@ -1,0 +1,33 @@
+---
+- name: install nfs server
+  yum:
+    name: nfs-utils
+    state: present
+  register: install_nfs
+  when: '"node2" in inventory_hostname'    
+- name: allow firewall rules
+  firewalld:
+    service:
+      - nfs
+      - mountd
+      - rpc-bind
+    permanent: yes
+    immediate: yes
+    state: enabled
+  register: firewalld
+  ignore_errors: yes
+  when: '"node2" in inventory_hostname'    
+    
+- name: start nfs service
+  service:
+    name: nfs-server
+    state: started
+    enabled: yes
+  register: nfs_server
+  when: '"node2" in inventory_hostname'
+- debug:
+    var: install_nfs
+- debug:
+    var: firewalld
+- debug:
+    var: nfs_server

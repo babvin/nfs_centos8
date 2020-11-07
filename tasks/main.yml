@@ -1,2 +1,12 @@
 ---
 # tasks file for nfs_centos8
+  - include_tasks: 1_create_user.yml 
+  - include_tasks: 2_create_dir.yml
+   # when: inventory_hostname == "node2"
+  - include_tasks: 3_install_nfs.yml
+  - include_tasks: 4_create_files.yml
+  - include_tasks: 5_i_template_export.yml
+  - include_tasks: 5_ii_mounting.yml
+  - include_tasks: 6_copy.yml
+  - include_tasks: 7_delete_files.yml 
+  - include_tasks: 8_zip.yml

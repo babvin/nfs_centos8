@@ -1,0 +1,12 @@
+---
+  - name: create a directory
+    file:
+      path: /srv/nfs
+      state: directory
+      owner: nfsuser
+      mode: 777
+    when: inventory_hostname == "node2"
+    register: directory
+  - debug: 
+      var: directory
+    when: directory.changed
