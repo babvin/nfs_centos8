@@ -1,0 +1,29 @@
+---
+  - name: create nfsuser and add to sudo
+    user:
+      name: nfsuser
+      groups: wheel
+      state: present
+      createhome: yes
+      append: yes
+    register: user_add
+  - name: set auth keys for new user (password less logins)
+    authorized_key:
+      user: nfsuser
+      key: /home/vagrant/.ssh/id_rsa.pub
+    register: ssh_keys
+  - name: update sudo to access without password authentication
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%wheel'
+      line: '%wheel ALL:(ALL) NOPASSWD:ALL'
+      validate: 'visudo -cf %s'
+    register: update_sudo
+
+  - debug:
+      var: user_add
+  - debug:
+      var: ssh_keys
+  - debug:
+      var: update_sudo
