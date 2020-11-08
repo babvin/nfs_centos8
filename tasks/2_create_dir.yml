@@ -4,6 +4,7 @@
       path: /srv/nfs
       state: directory
       owner: vagrant
+      group: vagrant
       mode: 777
     when: inventory_hostname == "node2"
     register: directory
