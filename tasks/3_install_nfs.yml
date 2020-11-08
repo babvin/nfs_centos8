@@ -5,12 +5,26 @@
     state: present
   register: install_nfs
   when: '"node2" in inventory_hostname'    
+
+- name: start firewalld 
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+  when: inventory_hostname == "node2"
+
 - name: allow firewall rules
   firewalld:
-    service:
-      - nfs
-      - mountd
-      - rpc-bind
+    port:
+      - 22/tcp
+      - 111/tcp
+      - 111/udp
+      - 2049/tcp
+      - 20048/tcp
+      - 20048/udp
+      - 39096/udp
+      - 39423/tcp
+      - 52917/udp
     permanent: yes
     immediate: yes
     state: enabled

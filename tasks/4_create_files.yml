@@ -12,6 +12,6 @@
   register: file1
   when: inventory_hostname == "node3" or inventory_hostname == "node4" or inventory_hostname == "node1"
     
-- name: debug
-  debug:
-    var: file1
+#- name: debug
+#  debug:
+#    var: file1
