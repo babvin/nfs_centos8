@@ -3,7 +3,7 @@
     file:
       path: /srv/nfs
       state: directory
-      owner: nfsuser
+      owner: vagrant
       mode: 777
     when: inventory_hostname == "node2"
     register: directory
